@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FORGE Fitness — Train Harder</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --black:#0a0a0a;
+  --white:#f4f4f0;
+  --red:#e02020;
+  --dark:#141414;
+  --grey:#888;
+}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:99;
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,10,10,0.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(244,244,240,0.06);
+}
+.logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:900;letter-spacing:0.04em;
+  color:var(--white);
+}
+.logo span{color:var(--red)}
+.nav-links{list-style:none;display:flex;gap:32px}
+.nav-links a{
+  text-decoration:none;font-size:0.82rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--grey);transition:color 0.2s;font-weight:500;
+}
+.nav-links a:hover{color:var(--white)}
+.join-btn{
+  background:var(--red);color:var(--white);
+  padding:10px 24px;font-size:0.75rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  font-weight:600;text-decoration:none;font-family:'Barlow',sans-serif;
+  transition:background 0.2s;
+}
+.join-btn:hover{background:#c01a1a}
+
+/* HERO */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 48px 80px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#1a0000 0%,#0a0a0a 60%);
+  z-index:0;
+}
+.hero-bg::before{
+  content:'';
+  position:absolute;top:0;right:0;width:60%;height:100%;
+  background:linear-gradient(135deg,#1a0505,#2a1010);
+  clip-path:polygon(20% 0,100% 0,100% 100%,0 100%);
+}
+.hero-content{position:relative;z-index:1}
+.hero-eyebrow{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:0.9rem;letter-spacing:0.4em;text-transform:uppercase;
+  color:var(--red);margin-bottom:16px;font-weight:600;
+}
+h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(5rem,13vw,11rem);
+  font-weight:900;line-height:0.9;
+  letter-spacing:-0.01em;text-transform:uppercase;
+  color:var(--white);margin-bottom:28px;
+}
+h1 em{font-style:italic;color:var(--red)}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.hero-desc{
+  font-size:1rem;color:var(--grey);line-height:1.7;
+  max-width:380px;font-weight:300;
+}
+.hero-cta{display:flex;gap:14px;align-items:center;flex-shrink:0}
+.btn-red{
+  background:var(--red);color:var(--white);padding:15px 36px;
+  font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;
+  font-weight:600;text-decoration:none;font-family:'Barlow',sans-serif;
+  transition:background 0.2s;
+}
+.btn-red:hover{background:#c01a1a}
+.btn-outline{
+  border:1px solid rgba(244,244,240,0.25);color:var(--white);
+  padding:15px 36px;font-size:0.8rem;letter-spacing:0.2em;
+  text-transform:uppercase;font-weight:500;text-decoration:none;
+  font-family:'Barlow',sans-serif;transition:border-color 0.2s;
+}
+.btn-outline:hover{border-color:var(--white)}
+
+/* STATS STRIP */
+.stats-strip{
+  background:var(--red);padding:28px 48px;
+  display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:20px;
+}
+.stat{text-align:center}
+.stat-n{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.5rem;font-weight:900;color:var(--white);display:block;line-height:1;
+}
+.stat-l{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.7;margin-top:4px}
+
+/* PROGRAMS */
+#programs{padding:100px 48px;background:var(--dark)}
+.section-head{margin-bottom:60px}
+.sec-label{
+  font-size:0.72rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--red);margin-bottom:14px;font-weight:600;
+}
+.sec-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(2.5rem,5vw,4rem);font-weight:900;
+  text-transform:uppercase;line-height:0.95;
+}
+.sec-title em{font-style:italic;color:var(--grey)}
+.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(244,244,240,0.06)}
+.prog-card{
+  background:var(--dark);padding:40px 32px;
+  transition:background 0.25s;cursor:default;
+}
+.prog-card:hover{background:#1e1e1e}
+.prog-icon{font-size:2rem;margin-bottom:18px}
+.prog-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:700;text-transform:uppercase;
+  margin-bottom:10px;line-height:1;
+}
+.prog-desc{font-size:0.85rem;color:var(--grey);line-height:1.65;font-weight:300}
+.prog-detail{
+  margin-top:20px;font-size:0.72rem;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--red);font-weight:600;cursor:pointer;
+}
+
+/* PRICING */
+#pricing{padding:100px 48px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:50px}
+.price-card{
+  border:1px solid rgba(244,244,240,0.1);
+  padding:40px 32px;transition:border-color 0.25s;
+}
+.price-card.featured{
+  background:var(--red);border-color:var(--red);
+}
+.price-card:hover{border-color:rgba(244,244,240,0.3)}
+.price-plan{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--grey);margin-bottom:20px;font-weight:600}
+.price-card.featured .price-plan{color:rgba(244,244,240,0.7)}
+.price-amt{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:3.5rem;font-weight:900;line-height:1;
+  margin-bottom:6px;
+}
+.price-per{font-size:0.8rem;color:var(--grey);margin-bottom:28px}
+.price-card.featured .price-per{color:rgba(244,244,240,0.7)}
+.price-features{list-style:none;margin-bottom:32px}
+.price-features li{
+  font-size:0.85rem;padding:10px 0;
+  border-bottom:1px solid rgba(244,244,240,0.08);
+  color:rgba(244,244,240,0.75);font-weight:300;
+}
+.price-card.featured .price-features li{border-color:rgba(244,244,240,0.2);color:var(--white)}
+.price-btn{
+  display:block;text-align:center;padding:13px;
+  border:1px solid rgba(244,244,240,0.3);
+  font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;
+  font-weight:600;text-decoration:none;color:var(--white);
+  transition:background 0.2s,border-color 0.2s;font-family:'Barlow',sans-serif;
+}
+.price-btn:hover{background:rgba(244,244,240,0.08)}
+.price-card.featured .price-btn{background:var(--white);color:var(--red);border-color:var(--white)}
+.price-card.featured .price-btn:hover{background:rgba(255,255,255,0.85)}
+
+/* CTA STRIP */
+#cta{
+  background:var(--white);color:var(--black);
+  padding:80px 48px;text-align:center;
+}
+#cta h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3rem,7vw,6rem);font-weight:900;
+  text-transform:uppercase;line-height:0.95;margin-bottom:24px;
+}
+#cta h2 em{font-style:italic;color:var(--red)}
+#cta p{font-size:1rem;color:#555;margin-bottom:36px;font-weight:300}
+.cta-btn{
+  background:var(--black);color:var(--white);
+  padding:16px 48px;font-size:0.82rem;
+  letter-spacing:0.2em;text-transform:uppercase;font-weight:600;
+  text-decoration:none;font-family:'Barlow',sans-serif;
+  display:inline-block;transition:background 0.2s;
+}
+.cta-btn:hover{background:var(--red)}
+
+footer{
+  background:var(--black);padding:28px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid rgba(244,244,240,0.06);
+}
+.footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;letter-spacing:0.04em}
+.footer-logo span{color:var(--red)}
+footer p{font-size:0.75rem;color:var(--grey)}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity 0.6s ease,transform 0.6s ease}
+.rv.on{opacity:1;transform:none}
+.d1{transition-delay:0.05s}.d2{transition-delay:0.12s}.d3{transition-delay:0.19s}
+
+@media(max-width:768px){
+  nav{padding:16px 20px}.nav-links{display:none}
+  #hero{padding:0 20px 60px}
+  .stats-strip{padding:24px 20px}
+  #programs,#pricing{padding:60px 20px}
+  .programs-grid,.pricing-grid{grid-template-columns:1fr}
+  #cta{padding:60px 20px}
+  footer{padding:24px 20px;flex-direction:column;gap:8px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">FOR<span>G</span>E</div>
+  <ul class="nav-links">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#cta">Join</a></li>
+  </ul>
+  <a href="#cta" class="join-btn">Join Now</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Train · Sweat · Repeat</div>
+    <h1>Built<br>to <em>break</em><br>limits.</h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">FORGE is where serious athletes and determined beginners come to push further than they thought possible. World-class coaches. Uncompromising equipment.</p>
+      <div class="hero-cta">
+        <a href="#cta" class="btn-red">Start Free Trial</a>
+        <a href="#programs" class="btn-outline">View Programs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stat"><span class="stat-n">4,200+</span><span class="stat-l">Active Members</span></div>
+  <div class="stat"><span class="stat-n">38</span><span class="stat-l">Expert Coaches</span></div>
+  <div class="stat"><span class="stat-n">6AM–11PM</span><span class="stat-l">Open Daily</span></div>
+  <div class="stat"><span class="stat-n">12</span><span class="stat-l">Locations</span></div>
+</div>
+
+<section id="programs">
+  <div class="section-head rv">
+    <div class="sec-label">What We Offer</div>
+    <h2 class="sec-title">Our <em>Programs</em></h2>
+  </div>
+  <div class="programs-grid">
+    <div class="prog-card rv d1">
+      <div class="prog-icon">🏋️</div>
+      <div class="prog-name">Strength & Power</div>
+      <div class="prog-desc">Progressive overload, compound lifts, and periodised programming for raw strength gains.</div>
+      <div class="prog-detail">Learn More →</div>
+    </div>
+    <div class="prog-card rv d2">
+      <div class="prog-icon">🔥</div>
+      <div class="prog-name">HIIT & Cardio</div>
+      <div class="prog-desc">High-intensity circuits designed to torch calories and build endurance in 45 minutes.</div>
+      <div class="prog-detail">Learn More →</div>
+    </div>
+    <div class="prog-card rv d3">
+      <div class="prog-icon">🥊</div>
+      <div class="prog-name">Combat Fitness</div>
+      <div class="prog-desc">Boxing fundamentals, kickboxing, and bag work for cardio and self-defence skills.</div>
+      <div class="prog-detail">Learn More →</div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="section-head rv">
+    <div class="sec-label">Membership</div>
+    <h2 class="sec-title">Simple <em>Pricing</em></h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card rv d1">
+      <div class="price-plan">Starter</div>
+      <div class="price-amt">$29</div>
+      <div class="price-per">per month</div>
+      <ul class="price-features">
+        <li>Gym floor access</li>
+        <li>2 group classes / week</li>
+        <li>Locker room access</li>
+      </ul>
+      <a href="#" class="price-btn">Get Started</a>
+    </div>
+    <div class="price-card featured rv d2">
+      <div class="price-plan">Pro</div>
+      <div class="price-amt">$59</div>
+      <div class="price-per">per month</div>
+      <ul class="price-features">
+        <li>Unlimited gym access</li>
+        <li>Unlimited group classes</li>
+        <li>1 PT session / month</li>
+        <li>Nutrition guide included</li>
+      </ul>
+      <a href="#" class="price-btn">Get Started</a>
+    </div>
+    <div class="price-card rv d3">
+      <div class="price-plan">Elite</div>
+      <div class="price-amt">$99</div>
+      <div class="price-per">per month</div>
+      <ul class="price-features">
+        <li>All Pro features</li>
+        <li>4 PT sessions / month</li>
+        <li>Recovery suite access</li>
+        <li>Priority class booking</li>
+      </ul>
+      <a href="#" class="price-btn">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="rv">
+    <h2>Your first week<br><em>is on us.</em></h2>
+    <p>No credit card required. Just show up and train.</p>
+    <a href="#" class="cta-btn">Claim Free Trial</a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">FOR<span>G</span>E</span>
+  <p>© 2026 FORGE Fitness. All rights reserved.</p>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:0.1})
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el))
+</script>
+</body>
+</html>

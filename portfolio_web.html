@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ani_prodev7 — Web Developer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#fafaf8;
+  color:#1a1a1a;
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#fafaf8}
+::-webkit-scrollbar-thumb{background:#c0392b}
+
+/* ── HERO ── */
+.hero{
+  padding:64px 36px 52px;
+  border-bottom:1px solid #e8e4de;
+  max-width:760px;
+}
+.hero-kicker{
+  font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:#999;margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,7vw,4.2rem);
+  font-weight:700;line-height:1.1;
+  letter-spacing:-0.01em;color:#111;margin-bottom:20px;
+}
+.hero h1 em{font-style:italic;font-weight:400;color:#999}
+.hero-bio{
+  font-size:0.98rem;line-height:1.78;color:#555;
+  max-width:580px;margin-bottom:24px;font-weight:300;
+}
+.hero-bio strong{color:#1a1a1a;font-weight:600}
+
+/* skill tags */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.tag{
+  background:#fff;border:1px solid #ddd;border-radius:100px;
+  padding:5px 14px;font-size:0.74rem;color:#444;
+}
+.tag.red{background:#fff5f5;border-color:#f5c0c0;color:#c0392b}
+.tag.blue{background:#f0f5ff;border-color:#c0cef5;color:#2357e8}
+.tag.green{background:#f0fff5;border-color:#b0e8c8;color:#1a7a40}
+
+/* payment badge */
+.payment-line{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fffbf0;border:1px solid #f0e0b0;border-radius:8px;
+  padding:10px 18px;font-size:0.82rem;color:#7a5a00;
+}
+.payment-line strong{font-weight:600}
+
+/* ── SECTION LABEL ── */
+.section-label{
+  padding:52px 36px 22px;
+  display:flex;align-items:baseline;gap:14px;
+}
+.section-label h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.7rem;font-weight:700;color:#111;
+}
+.section-label span{
+  font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;color:#aaa;
+}
+
+/* ── SKILLS STRIP ── */
+.skills-strip{
+  padding:0 36px 40px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+  border-bottom:1px solid #e8e4de;
+}
+.skill-box{
+  background:#fff;border:1px solid #e8e4de;border-radius:10px;
+  padding:18px 20px;
+}
+.skill-icon{font-size:1.4rem;margin-bottom:8px}
+.skill-name{font-size:0.88rem;font-weight:600;color:#111;margin-bottom:4px}
+.skill-desc{font-size:0.75rem;color:#999;line-height:1.4}
+
+/* ── PROJECTS ── */
+.projects-wrap{padding:0 36px 60px}
+
+/* big featured card */
+.project-featured{
+  background:#fff;border:1px solid #e8e4de;border-radius:14px;
+  overflow:hidden;margin-bottom:20px;
+  transition:box-shadow 0.25s,border-color 0.25s;
+}
+.project-featured:hover{box-shadow:0 6px 28px rgba(0,0,0,0.08);border-color:#ccc}
+
+.preview-wrap{
+  position:relative;
+  width:100%;
+  height:320px;
+  overflow:hidden;
+  background:#f0ede8;
+  border-bottom:1px solid #e8e4de;
+}
+.preview-wrap iframe{
+  position:absolute;
+  top:0;left:0;
+  width:200%;
+  height:200%;
+  transform:scale(0.5);
+  transform-origin:top left;
+  border:none;
+  pointer-events:none;
+}
+.preview-overlay{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:rgba(250,250,248,0);
+  transition:background 0.3s;
+  gap:12px;
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.project-featured:hover .preview-overlay{opacity:1;background:rgba(15,15,15,0.35)}
+.preview-open-btn{
+  background:#fff;color:#111;
+  padding:11px 28px;border-radius:8px;
+  font-size:0.8rem;font-weight:600;text-decoration:none;
+  letter-spacing:0.04em;
+  transition:background 0.2s,transform 0.2s;
+  transform:translateY(8px);
+  transition:transform 0.3s,background 0.2s;
+  display:flex;align-items:center;gap:8px;
+}
+.project-featured:hover .preview-open-btn{transform:translateY(0)}
+.preview-open-btn svg{width:14px;height:14px}
+
+.project-meta{padding:20px 24px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.meta-left{}
+.proj-type{
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:#aaa;margin-bottom:6px;display:block;
+}
+.proj-name{font-size:1.1rem;font-weight:600;color:#111;margin-bottom:6px;letter-spacing:-0.01em}
+.proj-desc{font-size:0.82rem;color:#888;line-height:1.55}
+.meta-right{flex-shrink:0}
+.proj-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#111;color:#fff;
+  padding:9px 18px;border-radius:7px;
+  font-size:0.75rem;font-weight:500;text-decoration:none;
+  white-space:nowrap;transition:background 0.2s;
+}
+.proj-link:hover{background:#333}
+.proj-link svg{width:12px;height:12px;flex-shrink:0}
+
+/* 2-col row for the two smaller ones */
+.projects-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.project-card{
+  background:#fff;border:1px solid #e8e4de;border-radius:14px;
+  overflow:hidden;transition:box-shadow 0.25s,border-color 0.25s;
+}
+.project-card:hover{box-shadow:0 6px 28px rgba(0,0,0,0.08);border-color:#ccc}
+.preview-wrap-sm{
+  position:relative;width:100%;height:200px;
+  overflow:hidden;background:#f0ede8;
+  border-bottom:1px solid #e8e4de;
+}
+.preview-wrap-sm iframe{
+  position:absolute;top:0;left:0;
+  width:200%;height:200%;
+  transform:scale(0.5);transform-origin:top left;
+  border:none;pointer-events:none;
+}
+.preview-overlay-sm{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity 0.3s;
+}
+.project-card:hover .preview-overlay-sm{opacity:1;background:rgba(15,15,15,0.3)}
+.project-card:hover .preview-open-btn{transform:translateY(0)}
+
+/* ── WHAT I BUILD ── */
+.notice-box{
+  margin:0 36px 0;
+  background:#fff8e8;border:1px solid #e8d98a;border-radius:10px;
+  padding:16px 22px;font-size:0.85rem;color:#5a4a00;line-height:1.65;
+}
+.notice-box strong{font-weight:600;color:#3a3000}
+
+/* ── CONTACT ── */
+.contact{padding:52px 36px 64px}
+.contact h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.7rem;font-weight:700;color:#111;margin-bottom:8px;
+}
+.contact-sub{font-size:0.9rem;color:#777;line-height:1.65;margin-bottom:28px;max-width:440px}
+.discord-card{
+  background:#fff;border:1px solid #e8e4de;border-radius:12px;
+  padding:24px 24px 20px;max-width:380px;
+}
+.discord-card-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.disc-icon{
+  width:42px;height:42px;border-radius:10px;background:#5865f2;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;
+}
+.disc-name{font-size:1.05rem;font-weight:600;color:#111}
+.disc-label{font-size:0.72rem;color:#aaa;margin-top:2px}
+.copy-btn{
+  width:100%;padding:11px;background:#111;color:#fff;
+  border:none;border-radius:8px;font-size:0.8rem;
+  font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;
+  transition:background 0.2s;letter-spacing:0.03em;
+}
+.copy-btn:hover{background:#333}
+.copy-msg{
+  text-align:center;font-size:0.75rem;color:#3a8c5c;
+  margin-top:10px;height:18px;transition:opacity 0.3s;opacity:0;
+}
+.robux-row{
+  display:flex;align-items:center;gap:8px;
+  margin-top:16px;padding-top:16px;border-top:1px solid #f0ede8;
+  font-size:0.78rem;color:#999;
+}
+.robux-row strong{color:#7a5a00}
+
+/* DIVIDER */
+.divider{height:1px;background:#e8e4de;margin:0 36px}
+
+/* FOOTER */
+footer{
+  border-top:1px solid #e8e4de;padding:22px 36px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-name{font-size:0.8rem;font-weight:600;color:#aaa}
+.footer-note{font-size:0.75rem;color:#ccc}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(20px);transition:opacity 0.55s ease,transform 0.55s ease}
+.rv.on{opacity:1;transform:none}
+.d1{transition-delay:0.05s}.d2{transition-delay:0.12s}.d3{transition-delay:0.19s}.d4{transition-delay:0.26s}
+
+@media(max-width:640px){
+  .hero{padding:44px 20px 36px}
+  .section-label{padding:40px 20px 18px}
+  .skills-strip{grid-template-columns:1fr 1fr;padding:0 20px 32px}
+  .projects-wrap,.notice-box{padding-left:20px;padding-right:20px}
+  .projects-wrap{padding:0 20px 48px}
+  .notice-box{margin:0 20px}
+  .projects-row{grid-template-columns:1fr}
+  .contact{padding:40px 20px 56px}
+  footer{padding:18px 20px;flex-direction:column;gap:6px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero rv">
+  <div class="hero-kicker">Web Developer · Available for hire</div>
+  <h1>Websites that<br><em>actually</em> convert.</h1>
+  <p class="hero-bio">
+    I'm a <strong>professional web developer</strong> with over <strong>5 years of experience</strong> building fast, good-looking websites for businesses, creators, and startups. From landing pages to full web apps — I handle the whole thing. My rates are fair and my turnaround is quick.
+  </p>
+  <div class="tags">
+    <span class="tag red">Open for Commissions</span>
+    <span class="tag blue">Frontend Dev</span>
+    <span class="tag blue">Full-Stack</span>
+    <span class="tag green">Landing Pages</span>
+    <span class="tag green">Web Apps</span>
+    <span class="tag">5+ Years Exp.</span>
+    <span class="tag">Fast Delivery</span>
+  </div>
+  <div class="payment-line">
+    <span>🟡</span>
+    <span><strong>Robux only</strong> — no other payment accepted</span>
+  </div>
+</div>
+
+<!-- WHAT I DO -->
+<div class="section-label rv">
+  <h2>What I do</h2>
+  <span>Services</span>
+</div>
+<div class="skills-strip rv">
+  <div class="skill-box">
+    <div class="skill-icon">🎨</div>
+    <div class="skill-name">UI Design</div>
+    <div class="skill-desc">Clean, modern interfaces that look good on every screen</div>
+  </div>
+  <div class="skill-box">
+    <div class="skill-icon">⚡</div>
+    <div class="skill-name">Fast Sites</div>
+    <div class="skill-desc">Optimised HTML, CSS & JS — no bloated frameworks</div>
+  </div>
+  <div class="skill-box">
+    <div class="skill-icon">📱</div>
+    <div class="skill-name">Responsive</div>
+    <div class="skill-desc">Looks perfect on mobile, tablet, and desktop</div>
+  </div>
+  <div class="skill-box">
+    <div class="skill-icon">🔧</div>
+    <div class="skill-name">Custom Builds</div>
+    <div class="skill-desc">Every site is built from scratch — no templates</div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section-label rv" id="projects">
+  <h2>Projects</h2>
+  <span>Example work</span>
+</div>
+
+<div class="notice-box rv">
+  <strong>⚠️ Note:</strong> The sites below are examples of the kind of work I can do. I can build pretty much any type of website — restaurant, fitness, SaaS, portfolio, e-commerce, blog, and more. <strong>If you have something specific in mind, just ask on Discord.</strong> Don't leave just because you don't see your exact type here.
+</div>
+
+<div class="projects-wrap" style="padding-top:20px">
+  <!-- FEATURED: SAAS -->
+  <div class="project-featured rv d1">
+    <div class="preview-wrap">
+      <iframe src="site_saas.html" title="Lumio SaaS Preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+      <div class="preview-overlay">
+        <a href="site_saas.html" target="_blank" class="preview-open-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open Full Site
+        </a>
+      </div>
+    </div>
+    <div class="project-meta">
+      <div class="meta-left">
+        <span class="proj-type">SaaS / Tech Product</span>
+        <div class="proj-name">Lumio — Analytics Dashboard</div>
+        <div class="proj-desc">A full SaaS landing page with hero, interactive dashboard mockup, features section, testimonials, and pricing — the kind of thing a startup would actually ship.</div>
+      </div>
+      <div class="meta-right">
+        <a href="site_saas.html" target="_blank" class="proj-link">
+          View Site
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW OF 2 -->
+  <div class="projects-row">
+    <!-- RESTAURANT -->
+    <div class="project-card rv d2">
+      <div class="preview-wrap-sm">
+        <iframe src="site_restaurant.html" title="Restaurant Preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        <div class="preview-overlay-sm">
+          <a href="site_restaurant.html" target="_blank" class="preview-open-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open Full Site
+          </a>
+        </div>
+      </div>
+      <div class="project-meta">
+        <div class="meta-left">
+          <span class="proj-type">Restaurant / Hospitality</span>
+          <div class="proj-name">Ember & Oak</div>
+          <div class="proj-desc">Upscale fine dining site with menu, reservations, and brand-driven design.</div>
+        </div>
+        <div class="meta-right">
+          <a href="site_restaurant.html" target="_blank" class="proj-link">
+            View
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GYM -->
+    <div class="project-card rv d3">
+      <div class="preview-wrap-sm">
+        <iframe src="site_gym.html" title="Gym Preview" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        <div class="preview-overlay-sm">
+          <a href="site_gym.html" target="_blank" class="preview-open-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open Full Site
+          </a>
+        </div>
+      </div>
+      <div class="project-meta">
+        <div class="meta-left">
+          <span class="proj-type">Fitness / Gym</span>
+          <div class="proj-name">FORGE Fitness</div>
+          <div class="proj-desc">Bold gym landing page with programs, membership pricing, and a high-energy aesthetic.</div>
+        </div>
+        <div class="meta-right">
+          <a href="site_gym.html" target="_blank" class="proj-link">
+            View
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<div class="contact rv" id="contact">
+  <h2>Let's work together</h2>
+  <p class="contact-sub">Got a project in mind? Hit me up on Discord. I respond quickly and we can figure out exactly what you need — no pressure, no complicated back-and-forth.</p>
+  <div class="discord-card">
+    <div class="discord-card-top">
+      <div class="disc-icon">💬</div>
+      <div>
+        <div class="disc-name">ani_prodev7</div>
+        <div class="disc-label">Discord username</div>
+      </div>
+    </div>
+    <button class="copy-btn" onclick="copyIt()">Copy Username</button>
+    <div class="copy-msg" id="cm">✓ Copied to clipboard</div>
+    <div class="robux-row">
+      <span>🟡</span>
+      <span>Payment in <strong>Robux only</strong></span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-name">ani_prodev7</span>
+  <span class="footer-note">Web Developer · Robux only</span>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:0.08})
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el))
+function copyIt(){
+  navigator.clipboard.writeText('ani_prodev7').then(()=>{
+    const m=document.getElementById('cm')
+    m.style.opacity=1
+    setTimeout(()=>m.style.opacity=0,2500)
+  })
+}
+</script>
+</body>
+</html>
